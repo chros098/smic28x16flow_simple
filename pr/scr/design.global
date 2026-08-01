@@ -1,0 +1,10 @@
+##################################
+## Innovus import data (LEF-only mode, no MMMC / timing)
+##################################
+
+setUserDataValue init_verilog $vars(netlist)
+setUserDataValue init_pwr_net $vars(pwr_nets)
+setUserDataValue init_gnd_net $vars(gnd_nets)
+setUserDataValue init_import_mode {-keepEmptyModule 1 -treatUndefinedCellAsBbox 0 -useLefDef56 1}
+setUserDataValue init_top_cell $vars(design)
+setUserDataValue init_lef_file "$vars(TECH_LEF_FILE) $vars(LEF_LIBS)"

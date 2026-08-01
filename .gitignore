@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Innovus run data
+.flag/
+pr/work/
+pr/dbs/
+pr/log/
+pr/rpts/
+dataout/
+datain/floorplan_file/
+
+# local inputs (not committed)
+netlist/cdl/
+lib/
