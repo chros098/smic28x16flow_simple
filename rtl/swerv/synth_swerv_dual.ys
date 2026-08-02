@@ -1,0 +1,18 @@
+# Synthesize dual-core SweRV EH1 onto SMIC40 std cells.
+# RTL sources:
+#   swerv_dual.v          - generated dual-core wrapper (gen_swerv_dual.py)
+#   swerv_wrapper.sv2v.v  - ORFS sv2v conversion of WD SweRV EH1
+#   openroad_clkgate.v    - clock-gate placeholder (pass-through)
+# Output: ../../netlist/cdl/swerv_dual.smic.gate.v
+
+read_verilog swerv_dual.v
+read_verilog swerv_wrapper.sv2v.v
+read_verilog openroad_clkgate.v
+
+synth -top swerv_dual
+setundef -zero
+dfflibmap -liberty ../../scc40nll_vhsc40_lvt_tt_v1p1_25c_basic.lib
+abc -liberty ../../scc40nll_vhsc40_lvt_tt_v1p1_25c_basic.lib
+stat
+opt_clean
+write_verilog -noattr ../../netlist/cdl/swerv_dual.smic.gate.v
