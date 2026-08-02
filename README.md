@@ -28,7 +28,7 @@ init → fp → place → route → dataout (GDS)
 - Stream map：`/tgzn/project/user03/k/inn/smic40_ad/lib/streams.map`
 - Filler：`F_FILL1_12TL40 ... F_FILL128_12TL40`（12T L40）
 - Tap cell：`FILLTIE3_12TL40 ... FILLTIE128_12TL40`（12T L40，fp 阶段 `addWellTap` 插入，间隔 60 site）
-- 电源：core ring M7(top/bottom)+M6(left/right) width 3 / spacing 2；M6 竖条纹 width 2 / spacing 20 / set-to-set 30
+- 电源：core ring M7(top/bottom)+M6(left/right) width 3 / spacing 2；M5-M8 条纹 width 4.5 / spacing 30（M5/M7 竖、M6/M8 横）
 - Floorplan：aspect ratio 1.2、core utilization 0.7、margin 5
 
 ## 使用方法

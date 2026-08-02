@@ -9,7 +9,7 @@ DESIGN:=complex_mul32
 BLOCK_PATH:= $(PWD)
 CPUS:=16
 
-INNOVUS:=/eda/cadence/INNOVUS191/bin/innovus
+INNOVUS:=/home/eda/cadence/INNOVUS201/tools.lnx86/bin/innovus
 
 FLAG_PATH:=${BLOCK_PATH}/.flag
 PR_PATH:=${BLOCK_PATH}/pr/work
