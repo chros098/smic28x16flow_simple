@@ -22,6 +22,10 @@ read_verilog plusarg_reader.v
 
 synth -top RocketTile
 
+# Replace all X (don't-care) constants with 0. Innovus's netlist parser
+# (IMPVL) rejects literals like 8'hxx, so this is required before write_verilog.
+setundef -zero
+
 if {[info exists env(SMIC_LIB)] && [file exists $env(SMIC_LIB)]} {
   puts "INFO: mapping to SMIC40 library $env(SMIC_LIB)"
   dfflibmap -liberty $env(SMIC_LIB)
