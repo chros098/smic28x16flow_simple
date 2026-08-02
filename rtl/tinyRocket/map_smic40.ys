@@ -8,4 +8,4 @@ read_verilog RocketTile.gate.v
 dfflibmap -liberty /tgzn/path/to/scc40nll_vhsc40_lvt.lib
 abc -liberty /tgzn/path/to/scc40nll_vhsc40_lvt.lib
 stat -liberty /tgzn/path/to/scc40nll_vhsc40_lvt.lib
-write_verilog RocketTile.smic.gate.v
+write_verilog -noattr RocketTile.smic.gate.v

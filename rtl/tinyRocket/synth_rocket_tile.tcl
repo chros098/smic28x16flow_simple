@@ -36,5 +36,5 @@ if {[info exists env(SMIC_LIB)] && [file exists $env(SMIC_LIB)]} {
   puts "WARNING: SMIC_LIB not set, keeping Yosys generic cells"
 }
 
-write_verilog RocketTile.gate.v
+write_verilog -noattr RocketTile.gate.v
 puts "INFO: netlist written to RocketTile.gate.v"

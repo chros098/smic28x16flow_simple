@@ -12,4 +12,4 @@ read_verilog plusarg_reader.v
 
 synth -top RocketTile
 setundef -zero
-write_verilog RocketTile.gate.v
+write_verilog -noattr RocketTile.gate.v
