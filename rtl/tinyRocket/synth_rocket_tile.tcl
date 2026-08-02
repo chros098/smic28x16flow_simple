@@ -6,7 +6,8 @@
 #   - plusarg_reader.v is the ORFS companion module
 #
 # Usage (run from rtl/tinyRocket/):
-#   yosys -c synth_rocket_tile.tcl
+#   yosys -c synth_rocket_tile.tcl        # Tcl-enabled Yosys
+#   yosys -s synth_rocket_tile.ys         # any Yosys (recommended)
 #
 # To map onto SMIC40 std cells (required before Innovus),
 # set SMIC_LIB to the .lib path, e.g.:

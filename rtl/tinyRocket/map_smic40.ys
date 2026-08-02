@@ -1,0 +1,11 @@
+# Map generic RocketTile.gate.v onto SMIC40 std cells.
+# Usage:
+#   1) edit SMIC40_LIB to your .lib path
+#   2) yosys -s map_smic40.ys
+# Output: RocketTile.smic.gate.v
+
+read_verilog RocketTile.gate.v
+dfflibmap -liberty /tgzn/path/to/scc40nll_vhsc40_lvt.lib
+abc -liberty /tgzn/path/to/scc40nll_vhsc40_lvt.lib
+stat -liberty /tgzn/path/to/scc40nll_vhsc40_lvt.lib
+write_verilog RocketTile.smic.gate.v

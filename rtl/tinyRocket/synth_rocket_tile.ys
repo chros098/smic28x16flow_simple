@@ -1,0 +1,15 @@
+# Yosys synthesis: RocketTile (Rocket TinyConfig)
+# Command-language mode (works without Tcl support):
+#   yosys -s synth_rocket_tile.ys
+# Output: RocketTile.gate.v (generic cells, no X constants)
+#
+# To map to SMIC40 std cells afterwards, edit SMIC40_LIB below
+# and run:  yosys -s map_smic40.ys
+
+read_verilog freechips.rocketchip.system.TinyConfig.v
+read_verilog behav_srams.v
+read_verilog plusarg_reader.v
+
+synth -top RocketTile
+setundef -zero
+write_verilog RocketTile.gate.v

@@ -7,6 +7,11 @@
 ////////////////////////////////////////////////////////////
 
 // D$ data array: 64 x 32 bit, byte write mask
+// NOTE: byte-masked partial writes are intentionally NOT modeled.
+// Older Yosys versions hit an internal assertion (mem.cc:
+// "port.en == State::S1") on such part-select write ports.
+// For this GDS-only flow the write mask is ignored (whole-word write);
+// use a real SRAM macro if byte-enable semantics are required.
 module data_arrays_0_ext (
   input  [5:0]  RW0_addr,
   input         RW0_en,
@@ -19,12 +24,8 @@ module data_arrays_0_ext (
   reg [31:0] mem [0:63];
 
   always @(posedge RW0_clk) begin
-    if (RW0_en && RW0_wmode) begin
-      if (RW0_wmask[0]) mem[RW0_addr][7:0]   <= RW0_wdata[7:0];
-      if (RW0_wmask[1]) mem[RW0_addr][15:8]  <= RW0_wdata[15:8];
-      if (RW0_wmask[2]) mem[RW0_addr][23:16] <= RW0_wdata[23:16];
-      if (RW0_wmask[3]) mem[RW0_addr][31:24] <= RW0_wdata[31:24];
-    end
+    if (RW0_en && RW0_wmode)
+      mem[RW0_addr] <= RW0_wdata;
   end
 
   assign RW0_rdata = mem[RW0_addr];

@@ -26,8 +26,11 @@ RISC-V Rocket Chip 生成 RTL（纯 Verilog，非 SystemVerilog）。
 
 ```bash
 cd rtl/tinyRocket
-SMIC_LIB=/path/to/smic40/scc40nll_vhsc40_lvt.lib yosys -c synth_rocket_tile.tcl
-# 输出 RocketTile.gate.v，拷到 netlist/cdl/RocketTile.v 后接 Innovus 流程
+yosys -s synth_rocket_tile.ys
+# 输出 RocketTile.gate.v（通用单元，无 X 常量）
+# 映射 SMIC40 库：编辑 map_smic40.ys 里的 .lib 路径后
+yosys -s map_smic40.ys
+# 输出 RocketTile.smic.gate.v，拷到 netlist/cdl/RocketTile.v 后接 Innovus 流程
 ```
 
 ### 方式 B：SRAM 宏（面积更小，适合 DefaultConfig 等大 cache）
