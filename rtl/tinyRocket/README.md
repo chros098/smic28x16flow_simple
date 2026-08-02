@@ -16,3 +16,22 @@ RISC-V Rocket Chip 生成 RTL（纯 Verilog，非 SystemVerilog）。
   `data_arrays_0_ext`、`data_arrays_0_0_ext`、`tag_array_ext`，
   综合/APR 阶段需映射到 SRAM macro（对应流程中的 3 个 macro）。
 - 许可证：Berkeley（BSD）与 SiFive 社区许可，见 ORFS 源仓库对应 LICENSE 文件。
+
+## 两种综合方式
+
+### 方式 A：纯标准单元（无宏，本仓库默认）
+
+`behav_srams.v` 提供 3 个黑盒的行为级 SRAM 模型，Yosys 会把 cache
+综合成寄存器阵列，网表不含任何宏实例：
+
+```bash
+cd rtl/tinyRocket
+SMIC_LIB=/path/to/smic40/scc40nll_vhsc40_lvt.lib yosys -c synth_rocket_tile.tcl
+# 输出 RocketTile.gate.v，拷到 netlist/cdl/RocketTile.v 后接 Innovus 流程
+```
+
+### 方式 B：SRAM 宏（面积更小，适合 DefaultConfig 等大 cache）
+
+综合时不读 `behav_srams.v`，保留 `data_arrays_*_ext` / `tag_array_ext`
+黑盒，在 Innovus 中映射到 SRAM 宏（需要宏 LEF/GDS，且 fp 脚本中把
+实例放到 keep-out 区域）。
