@@ -30,7 +30,8 @@ yosys -s synth_rocket_tile.ys
 # 输出 RocketTile.gate.v（通用单元，无 X 常量）
 # 映射 SMIC40 库：编辑 map_smic40.ys 里的 .lib 路径后
 yosys -s map_smic40.ys
-# 输出 RocketTile.smic.gate.v，拷到 netlist/cdl/RocketTile.v 后接 Innovus 流程
+# 直接输出 netlist/cdl/RocketTile.smic.gate.v，可单独交给 Innovus
+# （纯结构网表：无 always 块、无路径标注、无 X 常量）
 ```
 
 ### 方式 B：SRAM 宏（面积更小，适合 DefaultConfig 等大 cache）

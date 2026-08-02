@@ -13,3 +13,6 @@ datain/floorplan_file/
 # local inputs (not committed)
 netlist/cdl/
 lib/
+
+# PDK/library files (confidential, not committed)
+*.lib

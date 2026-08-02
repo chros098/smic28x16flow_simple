@@ -4,8 +4,15 @@
 #   2) yosys -s map_smic40.ys
 # Output: RocketTile.smic.gate.v
 
-read_verilog RocketTile.gate.v
-dfflibmap -liberty /tgzn/path/to/scc40nll_vhsc40_lvt.lib
-abc -liberty /tgzn/path/to/scc40nll_vhsc40_lvt.lib
-stat -liberty /tgzn/path/to/scc40nll_vhsc40_lvt.lib
-write_verilog -noattr RocketTile.smic.gate.v
+read_verilog ../../netlist/cdl/RocketTile.v
+# convert all always-block processes back to FF cells (required, otherwise
+# the netlist keeps behavioral always blocks that Innovus cannot parse)
+proc
+opt
+techmap
+opt
+dfflibmap -liberty ../../scc40nll_vhsc40_lvt_tt_v1p1_25c_basic.lib
+abc -liberty ../../scc40nll_vhsc40_lvt_tt_v1p1_25c_basic.lib
+stat -liberty ../../scc40nll_vhsc40_lvt_tt_v1p1_25c_basic.lib
+opt_clean
+write_verilog -noattr ../../netlist/cdl/RocketTile.smic.gate.v
