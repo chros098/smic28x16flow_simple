@@ -20,8 +20,8 @@ init → fp → place → route → dataout (GDS)
 
 ## 关键数据（来自 40nm 脚本）
 
-- 设计名：`complex_mul32`
-- 网表：`netlist/cdl/complex_mul32.v`（相对 pr/work 解析为 `../../netlist/cdl/...`）
+- 设计名：`swerv_dual`（SweRV EH1 双核，约 160K std cell，无 SRAM）
+- 网表：`netlist/cdl/swerv_dual.smic.gate.v`（相对 pr/work 解析为 `../../netlist/cdl/...`）
 - Tech LEF：`/tgzn/data/techfile/smic40/std/librarya/Design_Start/SMIC/40nm_logic/lib/stdcell/smic/SCC40NLL_VHSC40_LVT/V0p1/lef/tf/scc40nll_10lm_2tm.lef`
 - 单元 LEF：`.../V0p1/lef/macro/scc40nll_vhsc40_lvt.lef`
 - 单元 GDS：`.../V0p1/gds/scc40nll_vhsc40_lvt.gds`
@@ -43,7 +43,7 @@ make dataout        # 或分步 make init / fp / place / route / dataout
 
 ## 运行前必须准备
 
-1. `netlist/cdl/complex_mul32.v` 必须存在（或改 common_setup.tcl 里的路径）。
+1. `netlist/cdl/swerv_dual.smic.gate.v` 必须存在（或改 common_setup.tcl 里的路径）。
 2. `lib/streams.map` 必须存在（40nm 工艺的 Innovus→GDS 层映射文件），
    目前只有目录，文件内容需从工艺库/公共目录拷贝，否则 `make dataout` 的
    streamOut 会失败。

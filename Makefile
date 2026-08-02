@@ -5,7 +5,7 @@
 ## No CTS, no timing signoff, no StarRC/PT/RedHawk/Formality.
 ##################################
 
-DESIGN:=complex_mul32
+DESIGN:=swerv_dual
 BLOCK_PATH:= $(PWD)
 CPUS:=16
 

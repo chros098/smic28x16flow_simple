@@ -35,10 +35,14 @@ puts ">>> Core Size : ${core_w} x ${core_h}"
 #    Fixed area: 60000 um2 per macro, positioned by absolute offsets (um)
 #    from the core edges. Core box is read at runtime, so the actual
 #    coordinates are computed when the core size is known.
+#    Disabled when vars(fp_macro_keepouts) == "false" (no-SRAM designs).
 #      Macro 1 : top-center rectangle  300 x 200 = 60000 um2
 #      Macro 2 : bottom-right rectangle 300 x 200 = 60000 um2
 #      Macro 3 : bottom-left L-shape   250x160 + 100x200 = 60000 um2
 #-------------------------------------------------------------------------------
+if {[info exists vars(fp_macro_keepouts)] && $vars(fp_macro_keepouts) == "false"} {
+  puts ">>> Macro keep-out regions disabled (vars(fp_macro_keepouts)=false)"
+} else {
 set MACRO_POLYGONS [list]
 
 set MACRO_MARGIN 10      ; # gap from core edge (um)
@@ -108,6 +112,7 @@ foreach poly $MACRO_POLYGONS {
     }
     puts "  Macro region $idx: placement + routing fully blocked (no std cells, no wires)"
     incr idx
+}
 }
 
 #-------------------------------------------------------------------------------
