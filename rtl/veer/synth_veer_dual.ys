@@ -1,0 +1,16 @@
+# Synthesize dual-core SweRV EH2 (Veer) onto SMIC40 std cells.
+# RTL sources:
+#   veer_dual.v   - generated dual-core wrapper (gen_swerv_dual.py veer)
+#   veer.sv2v.v   - sv2v conversion of Cores-SweRV EH2 (top: veer)
+# Output: ../../netlist/cdl/veer_dual.smic.gate.v
+
+read_verilog veer_dual.v
+read_verilog veer.sv2v.v
+
+synth -top veer_dual
+setundef -zero
+dfflibmap -liberty ../../scc40nll_vhsc40_lvt_tt_v1p1_25c_basic.lib
+abc -liberty ../../scc40nll_vhsc40_lvt_tt_v1p1_25c_basic.lib
+stat
+opt_clean
+write_verilog -noattr ../../netlist/cdl/veer_dual.smic.gate.v
