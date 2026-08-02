@@ -2,8 +2,9 @@
 ## Floorplan template (SMIC 40nm, from the complex_mul32 script)
 ## - default: floorPlan -r 1.2 0.7 5 5 5 5 (aspect ratio / core util / margins)
 ## - optional: load a pre-placed DEF if vars(fp_def_file) is set
-## - irregular macro keep-out regions (placement + routing blockage)
-## - power: M7/M6 core ring + M6 vertical stripes + sroute
+## - macro regions fully shielded (placement hard blockage + routing blockage
+##   on ALL routing layers: no std cells, no wires inside)
+## - power: M7/M6 core ring + M5-M8 stripes (width 4.5 / spacing 30) + sroute
 ##################################
 
 #-------------------------------------------------------------------------------
@@ -93,18 +94,19 @@ foreach poly $MACRO_POLYGONS {
     set pb_name "macro_pb_${idx}"
     set rb_name "macro_rb_${idx}"
 
+    # placement: completely block standard cells inside the macro region
     createPlaceBlockage -name $pb_name -type hard -polygon $poly
 
-    if { [catch {createRouteBlockage -name $rb_name -layer all -polygon $poly}] } {
-        if { [catch {create_route_blockage -name $rb_name -layer all -polygon $poly}] } {
-            puts "  Warning: route blockage command not found, only placement blockage created for region $idx"
-        } else {
-            puts "  Created route blockage (create_route_blockage) for region $idx"
-        }
+    # routing: completely block ALL routing layers inside the macro region
+    # (M1..M10 + top metals). Explicitly pass the layer list when it can be
+    # read from the tech; otherwise let Innovus apply its all-layer default.
+    if {[catch {dbGet top.tech.layers.name -if {.isRoutingLayer==1}} rb_layers] == 0 \
+        && [llength $rb_layers] > 0} {
+        createRouteBlockage -name $rb_name -layers $rb_layers -polygon $poly
     } else {
-        puts "  Created route blockage (createRouteBlockage) for region $idx"
+        createRouteBlockage -name $rb_name -polygon $poly
     }
-    puts "  Created placement blockage for region $idx"
+    puts "  Macro region $idx: placement + routing fully blocked (no std cells, no wires)"
     incr idx
 }
 
