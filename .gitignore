@@ -16,3 +16,14 @@ lib/
 
 # PDK/library files (confidential, not committed)
 *.lib
+
+# chip-top integration flow (pr_top)
+pr_top/.flag/
+pr_top/work/
+pr_top/dbs/
+pr_top/log/
+pr_top/rpts/
+pr_top/dataout/
+!pr_top/lib/
+!pr_top/lib/analog_placeholders.lef
+__pycache__/
